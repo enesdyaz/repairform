@@ -2,10 +2,10 @@
   <div>
     <v-simple-table light style='width: 766px;' dense height="800px">
         <template v-slot:default>
-            <thead >
+            <thead>
                 <tr>
-                <th class="subtitle-2 font-weight-bold text-center">Problems</th>
-                <th class="subtitle-2 font-weight-bold text-center">Status</th>
+                <th style='width: 300px' class="subtitle-2 font-weight-bold text-center">Problems</th>
+                <th style='width: 90px' class="subtitle-2 font-weight-bold text-center">Status</th>
                 <th class="subtitle-2 font-weight-bold text-center">Details</th>
                
                 </tr>
@@ -13,17 +13,18 @@
   
             <tbody >
             <tr v-for="(item, index) in items" :key="item.id">
-            <td class="caption text-left" >{{ item.problem }}</td>
-            <td><v-chip x-small @click="onClick(index)">{{item.status}}</v-chip></td>                                  
+
+            <td style='padding: 8px; margin-left: 10px' class="caption text-left" >{{index+1}}. {{ item.problem }}</td>
+            <td ><v-chip x-small @click="onClick(index)">{{item.status}}</v-chip></td>         
+            <td class="caption text-left" v-if="items[index].status === 'no work'">  
+              
             
+                  <v-chip-group v-model="items[index].issueSelect" multiple column active-class="primary">              
+                    <v-chip  v-for="i in item.issue" :key="i" x-small>{{i}}</v-chip>
+                  </v-chip-group> 
             
-            <td class="caption text-left">
-                <div v-if='items.status === true'>
-                    <div>
-                    issue happend
-                    </div>
-                </div>
-                </td>                                  
+           
+            </td>                                  
             </tr>
             </tbody>
          </template>
@@ -40,56 +41,77 @@
       return {
         detailList: [],
         items: [
-          {id: 1,
+          {
             problem: 'Screen',
             status: 'work',
-            issue: {
-                reason: ['light broken','heavy borken','no screen']
-            }
+            issue: ['light broken','heavy borken','no screen','half screen', 'smashed'],    
+            issueSelect: [],
           },
-            {id: 2,
+            {
             problem: 'Battery',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],  
+            issueSelect: [],
           },
-          {id: 3,
+          {
             problem: 'Dock Connector',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],   
           },
           {id: 4,
             problem: 'Earphone',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 5,
             problem: 'Microphone',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 6,
             problem: 'Wifi/GPS',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 7,
             problem: 'Volume issue',
-            status: 'work',
+            status: 'work', 
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 8,
             problem: 'Front Camera',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 9,
             problem: 'Rear Camera',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 10,
             problem: 'Rear Side',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 11,
             problem: 'Seonsor',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
           {id: 12,
             problem: 'Water Damage',
             status: 'work',
+            issue: ['light broken','heavy borken','no screen'],
+            issueSelect: [],  
           },
         ]
       }
@@ -111,9 +133,10 @@
 
     methods:{
       onClick(index){
-      //  console.log(this.items.problem)
+      
         if(this.items[index].status==='work'){
             this.items[index].status = 'no work'
+
         } else {
           this.items[index].status = 'work'
         }
