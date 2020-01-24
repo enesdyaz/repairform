@@ -1,7 +1,6 @@
 <template>
   <div>
-      
-    <v-simple-table light style='width: 740px;' dense height="800px">
+    <v-simple-table light style='width: 766px;' dense height="800px">
         <template v-slot:default>
             <thead >
                 <tr>
@@ -13,9 +12,11 @@
             </thead>
   
             <tbody >
-            <tr v-for="item in items" :key="item.name">
-            <td class="caption text-left">{{ item.problem }}</td>
-            <td class="caption text-left"><v-switch dense v-model='item.status' light :label="`${item.status.toString()}`" ></v-switch></td>                                  
+            <tr v-for="(item, index) in items" :key="item.id">
+            <td class="caption text-left" >{{ item.problem }}</td>
+            <td><v-chip x-small @click="onClick(index)">{{item.status}}</v-chip></td>                                  
+            
+            
             <td class="caption text-left">
                 <div v-if='items.status === true'>
                     <div>
@@ -39,56 +40,56 @@
       return {
         detailList: [],
         items: [
-          {
+          {id: 1,
             problem: 'Screen',
-            status: false,
+            status: 'work',
             issue: {
                 reason: ['light broken','heavy borken','no screen']
             }
           },
-            {
+            {id: 2,
             problem: 'Battery',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 3,
             problem: 'Dock Connector',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 4,
             problem: 'Earphone',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 5,
             problem: 'Microphone',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 6,
             problem: 'Wifi/GPS',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 7,
             problem: 'Volume issue',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 8,
             problem: 'Front Camera',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 9,
             problem: 'Rear Camera',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 10,
             problem: 'Rear Side',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 11,
             problem: 'Seonsor',
-            status: false,
+            status: 'work',
           },
-          {
+          {id: 12,
             problem: 'Water Damage',
-            status: false,
+            status: 'work',
           },
         ]
       }
@@ -97,7 +98,7 @@
       status() {
           
           for (var i=0;i<this.items.length;i++){
-              console.log(this.items[i].problem)
+              
               if(this.items[i].status === 'true'){
                 
                 this.detailList.push(this.items[i].issue.reason)
@@ -106,6 +107,17 @@
           console.log(this.detailList)
           
         }
+    },
+
+    methods:{
+      onClick(index){
+      //  console.log(this.items.problem)
+        if(this.items[index].status==='work'){
+            this.items[index].status = 'no work'
+        } else {
+          this.items[index].status = 'work'
+        }
+      }
     }
     
 };
